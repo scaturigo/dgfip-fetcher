@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv/
+
+# macOS
+.DS_Store
+
+# IDE config files
+.idea/
+
+# Testing and Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+pytest.xml
+coverage.xml
