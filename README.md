@@ -7,7 +7,8 @@
 ## Key Features
 
 *   **Time-saving**: No more manual clicking through each year.
-*   **Clear Organization**: Files are automatically renamed (e.g., `2023_property_tax.pdf`).
+*   **Clear Organization**: One folder per year, with the income tax notices (*avis d'impôt*) at its root and the other documents in sub-folders (`Déclarations`, `Taxes locales`, `Factures`, `Autres`). Files are named after the year and the document title (e.g., `2022_avis_de_taxes_foncieres_2022_c4e1a9.pdf`). The short suffix is derived from the document identifier, so two documents with the same title (e.g. local invoices) never collide.
+*   **Incremental**: Documents already present in the output folder are skipped, so you can run it every year in the same folder.
 *   **Secure**: Your credentials are stored in your system's secure vault (Keyring).
 *   **Simple**: One command to fetch everything.
 
@@ -36,7 +37,8 @@ dgfip-fetcher
 
 *   `--years N`: Number of previous years to scan (default: 10).
 *   `--output DIR`: Destination folder for PDFs.
-*   `--debug`: Shows the browser during login (useful for 2FA or troubleshooting).
+*   `--flat`: Saves all files directly in the destination folder instead of year folders.
+*   `--debug`: Shows the browser during login (useful for troubleshooting). When asked for the 2FA code, you can also type it in the browser and just press Enter in the terminal.
 *   `--reset`: Clears saved credentials and session.
 
 **Example:**
@@ -46,11 +48,12 @@ dgfip-fetcher --years 5 --output my_tax_archives
 
 ## How It Works
 
-1.  **Authentication**: Uses Playwright to handle login and 2FA (SMS/Email) from the official French tax portal.
+1.  **Authentication**: Uses Playwright to handle login and 2FA (SMS/Email) from the official French tax portal. The session is saved and reused, so the 2FA code is only asked when it has expired.
+    If the login fails, a screenshot of the page is saved in the config folder (`login_failure.png`) to help troubleshooting.
 2.  **Secret Storage**: 
-    *   Your **French tax ID (SPI)** is stored in a standard config folder.
+    *   Your **French tax ID (SPI)** and the session cookies are stored in a standard config folder, readable only by your user.
     *   Your password is encrypted and stored in your OS keychain.
-3.  **Retrieval**: Documents are detected and downloaded using efficient asynchronous requests.
+3.  **Retrieval**: All documents (tax notices, returns, acknowledgements, local invoices...) are listed from the "Documents" page and downloaded with plain HTTP requests.
 
 ## Development
 
