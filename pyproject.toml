@@ -1,6 +1,6 @@
 [project]
 name = "dgfip-fetcher"
-version = "0.2.0"
+version = "0.2.1"
 description = "Outil de téléchargement automatisé des documents fiscaux depuis impots.gouv.fr"
 authors = [
     { name = "Scaturigo", email = "7864575+scaturigo@users.noreply.github.com" }
